@@ -1,0 +1,93 @@
+//#include<TimerOne.h>
+
+#define LED9 9
+#define LED10 10
+#define LED11 11
+#define LED12 12 
+
+volatile int count = 8;
+volatile bool flag = false;
+
+void setup()
+{  
+  cli();
+  TCCR1A = 0;
+  TCCR1B = 0;
+  TCCR1B |= (1 << WGM12);
+  TCCR1B |= (1 << CS12);
+  OCR1A = 15624;
+  TIMSK1 |= (1 << OCIE1A);
+  sei();
+  pinMode(LED9, OUTPUT); 
+  pinMode(LED10, OUTPUT); 
+  pinMode(LED11, OUTPUT); 
+  pinMode(LED12, OUTPUT); 
+}
+
+void loop()
+{
+  //  if(flag == true){
+  //    digitalWrite(13, !digitalRead(13));
+  //    resetVars();
+  //  }
+
+
+  if(flag)
+  {  
+      switch(count)
+      {
+        case 0: // 2000 8 TICKS
+        digitalWrite(LED9, !digitalRead(LED9)); //2 seg
+        digitalWrite(LED10, !digitalRead(LED10)); //1seg
+        digitalWrite(LED11, !digitalRead(LED11)); //500ms
+        break;
+        
+        case 2:
+        digitalWrite(LED11, !digitalRead(LED11)); //500ms
+        //250ms
+        break;
+
+        case 4: // 1000 4 TICKS
+        digitalWrite(LED10, !digitalRead(LED10)); //1seg
+        digitalWrite(LED11, !digitalRead(LED11)); //500ms
+        //250ms
+        break;
+
+        case 6: //500 . 2 TICKS
+        digitalWrite(LED11, !digitalRead(LED11)); //500ms
+		//250ms
+        break;
+        
+        default:
+        break;
+       }
+    
+    if(count < 8)
+    {
+      digitalWrite(LED12, !digitalRead(LED12));
+    }
+    
+    flag = false;
+  }
+  
+	    
+  if(count <= 0) 
+  {
+    resetVars();
+  }
+  
+  
+ }
+
+
+void resetVars()
+{  
+  flag = false;
+  count = 8;
+}
+
+ISR (TIMER1_COMPA_vect)
+{
+    count --;
+    flag = true;  
+}

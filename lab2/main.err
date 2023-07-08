@@ -1,0 +1,5 @@
+Warning[205] C:\USERS\VINICIUS\DESKTOP\SEMESTRE 2023.1\EMBARCADOS\PROJETOS\LAB2\MAIN.ASM 2 : Found directive in column 1. (__CONFIG)
+Message[302] C:\USERS\VINICIUS\DESKTOP\SEMESTRE 2023.1\EMBARCADOS\PROJETOS\LAB2\MAIN.ASM 24 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\VINICIUS\DESKTOP\SEMESTRE 2023.1\EMBARCADOS\PROJETOS\LAB2\MAIN.ASM 26 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[202] C:\USERS\VINICIUS\DESKTOP\SEMESTRE 2023.1\EMBARCADOS\PROJETOS\LAB2\MAIN.ASM 54 : Argument out of range.  Least significant bits used.
+Warning[205] C:\USERS\VINICIUS\DESKTOP\SEMESTRE 2023.1\EMBARCADOS\PROJETOS\LAB2\MAIN.ASM 71 : Found directive in column 1. (END)

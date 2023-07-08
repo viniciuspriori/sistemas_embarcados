@@ -1,0 +1,71 @@
+#INCLUDE <P16F628A.INC>
+__CONFIG  _BODEN_ON & _CP_OFF & _PWRTE_ON & _WDT_OFF & _LVP_OFF & _MCLRE_ON & _HS_OSC
+
+#DEFINE	BANK0	BCF STATUS,RP0	;Seleciona Banco 0 de memória RAM
+#DEFINE	BANK1	BSF STATUS,RP0	;Seleciona Banco 1 de memória RAM
+#DEFINE	btn 	1
+#DEFINE	ledBtn 	0
+
+
+
+	CBLOCK	0x20
+		COUNT1
+		COUNT2
+		COUNT3
+		AUXPORTB0
+	ENDC
+
+	ORG	0x00
+	GOTO	INICIO
+
+INICIO
+	BANK1
+	MOVLW	B'00000010'	
+	MOVWF	TRISA
+	MOVLW	B'00000000'
+	MOVWF	TRISB
+	MOVLW	B'00000000'
+	MOVWF	INTCON	
+	BANK0	
+	MOVLW	B'00000111'
+	MOVWF	CMCON
+	CLRF	PORTB
+	CLRF	COUNT3
+
+MAIN
+	BTFSC	PORTA, btn ;mudei o bit test pra o led 0 acender quando aperto o botão
+	GOTO	btnNotPressed	
+								
+	BSF		PORTB, ledBtn ;seta o bit 0 de portB
+	GOTO	BTN_CONTINUE
+
+btnNotPressed
+	BCF		PORTB, ledBtn ; limpa o bit 0 de portB
+
+BTN_CONTINUE
+	INCF	COUNT1, f ;incrementa count1
+	BTFSS	STATUS, Z
+	GOTO	CONTINUE
+
+	INCF	COUNT2, f
+	BTFSS	STATUS, Z
+	GOTO	CONTINUE
+			
+	MOVLW	.500 ;botao apertado
+	BTFSC	PORTA, btn ;botao apertado -> nao substitui o 500 pelo 100 em count2, ou seja, contador fica mais rápido
+	MOVLW	.100  ;botao nao apertado
+	MOVWF	COUNT2
+
+	INCF	COUNT3, f
+
+CONTINUE
+	MOVF	PORTB, W
+	ANDLW	B'00000001'
+	MOVWF	AUXPORTB0
+	MOVF	COUNT3, W
+	ANDLW	B'11111110'
+	IORWF	AUXPORTB0, W
+	MOVWF	PORTB
+	GOTO 	MAIN
+
+END

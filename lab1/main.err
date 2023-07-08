@@ -1,0 +1,4 @@
+Warning[205] C:\USERS\VINICIUS\DESKTOP\2023.1\EMBARCADOS\LAB1\MAIN.ASM 3 : Found directive in column 1. (__CONFIG)
+Message[302] C:\USERS\VINICIUS\DESKTOP\2023.1\EMBARCADOS\LAB1\MAIN.ASM 20 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\VINICIUS\DESKTOP\2023.1\EMBARCADOS\LAB1\MAIN.ASM 22 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] C:\USERS\VINICIUS\DESKTOP\2023.1\EMBARCADOS\LAB1\MAIN.ASM 33 : Found directive in column 1. (END)
